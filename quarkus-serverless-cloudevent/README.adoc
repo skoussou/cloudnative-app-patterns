@@ -1,9 +1,9 @@
 :toc:
 
-The purpose of this is to showcase creating Quarkus based function from scratch, refactor it to receive/return `CloudEvent<Output>`,
-build it with Quarkus docker or openshift S2I extensions and deploy it Knative Servce (KService), call it via direct HTTP Cloud Event
-well create Knative `Trigger` on default Knative broker, to filter for the function name on the received cloud events which in turn again
-would register the event on the deploy Quarkus based function.
+The purpose of this is to showcase creating a Quarkus based function from scratch, refactoring it to receive/return `CloudEvent<T>`,
+build it with Quarkus docker or openshift S2I extensions and deploy it as a `Knative Servce` (`KService`), calling it via a direct HTTP Cloud Event
+as well create as via Knative `Trigger` on default Knative `Broker`, to filter for the function name on the received cloud events which in turn again
+would register the event on the deployed Quarkus based function.
 
 * link:https://docs.openshift.com/serverless/1.28/functions/serverless-functions-getting-started.html[Functions & Knative Documentation]
 * link:https://access.redhat.com/documentation/en-us/red_hat_openshift_serverless/1.28/html-single/eventing/index[Knative Eventing Documentation]
@@ -36,8 +36,11 @@ would register the event on the deploy Quarkus based function.
 
 ## Refactored function signature to receive/return `CloudEvent` and interact with CloudEvent attributes
 
-link:https://access.redhat.com/documentation/en-us/red_hat_openshift_serverless/1.28/html-single/functions/index#serverless-quarkus-cloudevent-attributes_serverless-developing-quarkus-functions[CloudEvent attributes]
-link:https://access.redhat.com/documentation/en-us/red_hat_openshift_serverless/1.28/html-single/functions/index#serverless-quarkus-function-return-values_serverless-developing-quarkus-functions[Quarkus function return types]
+[NOTE]
+====
+- link:https://access.redhat.com/documentation/en-us/red_hat_openshift_serverless/1.28/html-single/functions/index#serverless-quarkus-cloudevent-attributes_serverless-developing-quarkus-functions[CloudEvent attributes]
+- link:https://access.redhat.com/documentation/en-us/red_hat_openshift_serverless/1.28/html-single/functions/index#serverless-quarkus-function-return-values_serverless-developing-quarkus-functions[Quarkus function return types]
+====
 
 * From
 
