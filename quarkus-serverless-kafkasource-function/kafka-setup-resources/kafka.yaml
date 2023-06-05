@@ -1,0 +1,209 @@
+apiVersion: kafka.strimzi.io/v1beta2
+kind: Kafka
+metadata:
+  name: cluster-serverless
+  namespace: kafkas
+spec:
+  entityOperator:
+    topicOperator: {}
+    userOperator: {}
+  kafka:
+    authorization:
+      superUsers:
+        - ANONYMOUS
+      type: simple
+    config:
+      auto.create.topics.enable: false
+      inter.broker.protocol.version: '3.4'
+      offsets.topic.replication.factor: 3
+      transaction.state.log.min.isr: 2
+      transaction.state.log.replication.factor: 3
+    listeners:
+      - name: plain
+        port: 9092
+        tls: false
+        type: internal
+      - authentication:
+          type: tls
+        name: tls
+        port: 9093
+        tls: true
+        type: internal
+      - authentication:
+          type: scram-sha-512
+        name: saslssl
+        port: 9094
+        tls: true
+        type: internal
+      - authentication:
+          type: scram-sha-512
+        name: saslplain
+        port: 9095
+        tls: false
+        type: internal
+      - name: tlsnoauth
+        port: 9096
+        tls: true
+        type: internal
+    replicas: 3
+    storage:
+      type: ephemeral
+    version: 3.4.0
+  zookeeper:
+    replicas: 3
+    storage:
+      type: ephemeral
+
+###########################################
+#      JUST FOR INFORMATION
+###########################################
+status:
+  clusterId: xz5Vd8tITnyCY7fqzY07hw
+  conditions:
+    - lastTransitionTime: '2023-06-02T15:43:55.314043499Z'
+      message: >-
+        default.replication.factor option is not configured. It defaults to 1
+        which does not guarantee reliability and availability. You should
+        configure this option in .spec.kafka.config.
+      reason: KafkaDefaultReplicationFactor
+      status: 'True'
+      type: Warning
+    - lastTransitionTime: '2023-06-02T15:43:55.314139590Z'
+      message: >-
+        min.insync.replicas option is not configured. It defaults to 1 which
+        does not guarantee reliability and availability. You should configure
+        this option in .spec.kafka.config.
+      reason: KafkaMinInsyncReplicas
+      status: 'True'
+      type: Warning
+    - lastTransitionTime: '2023-06-02T15:45:14.991346017Z'
+      status: 'True'
+      type: Ready
+  listeners:
+    - addresses:
+        - host: cluster-serverless-kafka-bootstrap.kafkas.svc
+          port: 9092
+      bootstrapServers: 'cluster-serverless-kafka-bootstrap.kafkas.svc:9092'
+      name: plain
+      type: plain
+    - addresses:
+        - host: cluster-serverless-kafka-bootstrap.kafkas.svc
+          port: 9093
+      bootstrapServers: 'cluster-serverless-kafka-bootstrap.kafkas.svc:9093'
+      certificates:
+        - |
+          -----BEGIN CERTIFICATE-----
+          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
+          -----END CERTIFICATE-----
+      name: tls
+      type: tls
+    - addresses:
+        - host: cluster-serverless-kafka-bootstrap.kafkas.svc
+          port: 9094
+      bootstrapServers: 'cluster-serverless-kafka-bootstrap.kafkas.svc:9094'
+      certificates:
+        - |
+          -----BEGIN CERTIFICATE-----
+          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
+          -----END CERTIFICATE-----
+      name: saslssl
+      type: saslssl
+    - addresses:
+        - host: cluster-serverless-kafka-bootstrap.kafkas.svc
+          port: 9095
+      bootstrapServers: 'cluster-serverless-kafka-bootstrap.kafkas.svc:9095'
+      name: saslplain
+      type: saslplain
+    - addresses:
+        - host: cluster-serverless-kafka-bootstrap.kafkas.svc
+          port: 9096
+      bootstrapServers: 'cluster-serverless-kafka-bootstrap.kafkas.svc:9096'
+      certificates:
+        - |
+          -----BEGIN CERTIFICATE-----
+          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
+          -----END CERTIFICATE-----
+      name: tlsnoauth
+      type: tlsnoauth
+  observedGeneration: 1

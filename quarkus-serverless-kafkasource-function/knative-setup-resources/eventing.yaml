@@ -1,0 +1,11 @@
+apiVersion: operator.knative.dev/v1beta1
+kind: KnativeEventing
+metadata:
+    name: knative-eventing
+    namespace: knative-eventing
+
+# oc get knativeeventing.operator.knative.dev/knative-eventing \
+#  -n knative-eventing \
+#  --template='{{range .status.conditions}}{{printf "%s=%s\n" .type .status}}{{end}}'
+#  InstallSucceeded=True
+#  Ready=True

@@ -1,0 +1,13 @@
+apiVersion: serving.knative.dev/v1
+kind: Service
+metadata:
+  name: funqy-quarkus-serverless-cloudevent-docker
+spec:
+  template:
+    metadata:
+      name: funqy-quarkus-serverless-cloudevent-docker-v1
+      annotations:
+        autoscaling.knative.dev/target: "1"
+    spec:
+      containers:
+        - image: quay.io/skoussou/funqy-quarkus-serverless-cloudevent-docker

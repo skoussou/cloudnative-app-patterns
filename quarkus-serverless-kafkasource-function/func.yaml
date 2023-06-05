@@ -1,0 +1,37 @@
+specVersion: 0.35.0
+name: examplefunc-1
+runtime: quarkus
+registry: quay.io/skoussou/examplefunc-1:latest
+image: quay.io/skoussou/examplefunc-1:latest
+imageDigest: sha256:93aab48a3db2b8ab8db3bdcefb8ab08df7ec161d8473eab6f8576d347959b03b
+created: 2023-06-02T12:37:32.791075536+01:00
+invoke: cloudevent
+build:
+  buildpacks: []
+  builder: s2i
+  buildEnvs:
+  - name: BP_JVM_VERSION
+    value: "17"
+  - name: BP_NATIVE_IMAGE
+    value: "false"
+  - name: BP_MAVEN_BUILT_ARTIFACT
+    value: func.yaml target/quarkus-app/lib/ target/quarkus-app/*.jar target/quarkus-app/app/
+      target/quarkus-app/quarkus/
+  - name: BP_MAVEN_BUILD_ARGUMENTS
+    value: package -DskipTests=true -Dmaven.javadoc.skip=true -Dquarkus.package.type=fast-jar
+  - name: MAVEN_S2I_ARTIFACT_DIRS
+    value: target/quarkus-app
+  - name: S2I_SOURCE_DEPLOYMENTS_FILTER
+    value: lib quarkus-run.jar app quarkus
+run:
+  volumes: []
+  envs: []
+deploy:
+  namespace: functions-tests
+  remote: false
+  annotations: {}
+  options: {}
+  labels: []
+  healthEndpoints:
+    liveness: /health/liveness
+    readiness: /health/readiness

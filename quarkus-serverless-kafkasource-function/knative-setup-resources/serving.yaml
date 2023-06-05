@@ -1,0 +1,11 @@
+apiVersion: operator.knative.dev/v1beta1
+kind: KnativeServing
+metadata:
+    name: knative-serving
+    namespace: knative-serving
+
+# $ oc get knativeserving.operator.knative.dev/knative-serving -n knative-serving --template='{{range .status.conditions}}{{printf "%s=%s\n" .type .status}}{{end}}'
+# DependenciesInstalled=True
+# DeploymentsAvailable=True
+# InstallSucceeded=True
+# Ready=True

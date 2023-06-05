@@ -1,0 +1,14 @@
+apiVersion: eventing.knative.dev/v1
+kind: Trigger
+metadata:
+  name: my-cloud-event-greeting-for-docker
+spec:
+  broker: default
+  filter:
+    attributes:
+      type: myCloudEventGreeting #must match function name
+  subscriber:
+    ref:
+      apiVersion: serving.knative.dev/v1
+      kind: Service
+      name: funqy-quarkus-serverless-cloudevent-docker

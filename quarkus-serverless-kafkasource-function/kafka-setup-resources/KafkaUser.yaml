@@ -1,0 +1,77 @@
+apiVersion: kafka.strimzi.io/v1beta2
+kind: KafkaUser
+metadata:
+  labels:
+    strimzi.io/cluster: cluster-serverless
+  name: sasl-user
+  namespace: kafkas
+spec:
+  authentication:
+    type: scram-sha-512
+  authorization:
+    acls:
+      - host: '*'
+        operation: Read
+        resource:
+          name: '*'
+          patternType: literal
+          type: topic
+      - host: '*'
+        operation: Describe
+        resource:
+          name: '*'
+          patternType: literal
+          type: topic
+      - host: '*'
+        operation: Read
+        resource:
+          name: '*'
+          patternType: literal
+          type: group
+      - host: '*'
+        operation: Delete
+        resource:
+          name: '*'
+          type: group
+      - host: '*'
+        operation: Write
+        resource:
+          name: '*'
+          patternType: literal
+          type: topic
+      - host: '*'
+        operation: Create
+        resource:
+          name: '*'
+          patternType: literal
+          type: topic
+      - host: '*'
+        operation: Describe
+        resource:
+          name: '*'
+          patternType: literal
+          type: topic
+      - host: '*'
+        operation: Delete
+        resource:
+          name: '*'
+          patternType: literal
+          type: topic
+    type: simple
+
+###########################################
+#      JUST FOR INFORMATION
+###########################################
+status:
+  conditions:
+    - lastTransitionTime: '2023-06-02T16:00:27.401675010Z'
+      message: >-
+        In API version kafka.strimzi.io/v1beta2 the operation property at path
+        spec.authorization.acls.operation has been deprecated, and should now be
+        configured using spec.authorization.acls[*].operations.
+      reason: DeprecatedFields
+      status: 'True'
+      type: Warning
+  observedGeneration: 1
+  secret: sasl-user
+  username: sasl-user

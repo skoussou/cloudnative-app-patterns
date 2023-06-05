@@ -1,0 +1,8 @@
+:toc:
+
+== KNative Patterns & Functions
+
+1. link:quarkus-serverless-cloudevent[quarkus-serverless-cloudevent]
+** create `@Funq' function with `kn func` cli, function build patterns, deliver as Knative service, call via `Source to Sink` Knative Pattern with `KafkaSource`
+2. link:quarkus-serverless-kafkasource-function[quarkus-serverless-kafkasource-function]
+** create `@Funq` function with quarkus `funqy-knative-events`, build with `container-image-docker` or `container-image-s2i` extensions, deploy as Knative service, exerice with `Event Source to Broker and Trigger` pattern via `Broker` and `Trigger`
