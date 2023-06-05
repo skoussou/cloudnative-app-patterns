@@ -125,6 +125,9 @@ is added to the Kubernetes platform to perform the build.
     quarkus.container-image.push=true
     quarkus.container-image.builder=docker
     quarkus.container-image.image=quay.io/skoussou/funqy-quarkus-serverless-cloudevent-docker
+    quarkus.container-image.username=<OPTIONAL or LOGIN in advance>
+    quarkus.container-image.password=<OPTIONAL or LOGIN in advance>
+    quarkus.container-image.registry=<OPTIONAL or LOGIN in advance>
 
 * Containerize the function and then push it to the Docker Hub container registry automatically:
 
@@ -132,11 +135,33 @@ is added to the Kubernetes platform to perform the build.
 
 ###  Building function with S2I
 
-./mvnw quarkus:add-extension -Dextensions="container-image-s2i"
+
+*Note:* You need to remove `container-image-docker` if the previous section was added earlier
+
+    ./mvnw quarkus:add-extension -Dextensions="container-image-s2i"
+
+* Add to `application.properties` file the following variables to configure Knative and Kubernetes resources (make sure to replace yourAccountName with your container registry's account name, e.g., your username in Docker Hub):
+
+    quarkus.container-image.build=true
+    quarkus.container-image.push=true
+    quarkus.container-image.builder=s2i
+    quarkus.container-image.image=quay.io/skoussou/funqy-quarkus-serverless-cloudevent-s2i
+    # If you want to build a native container image and already have an existing native image you can
+    # set the following and the native image build will not be re-run.
+        quarkus.container-image.username=<OPTIONAL or LOGIN in advance>
+    quarkus.container-image.password=<OPTIONAL or LOGIN in advance>
+    quarkus.container-image.registry=<OPTIONAL or LOGIN in advance>
+    quarkus.native.reuse-existing=true
+
+* S2I builds require creating a BuildConfig and two ImageStream resources, one for the builder image and one for the output image. This is taken care of by Quarkus Kubernetes extension.
+
+* Containerize the function and then push it to the Docker Hub container registry automatically:
+
+    ./mvnw clean package
 
 ## Deploy & Test via HTTP Direct
 
-* `oc -n functions-tests apply -f src/main/k8s/funqy-service.yaml`
+* Docker based build `oc -n functions-tests apply -f src/main/k8s/funqy-service-docker.yaml` (for s2i based build use)
 
 ----
 echo '
