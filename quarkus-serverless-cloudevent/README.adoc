@@ -34,7 +34,10 @@ would register the event on the deploy Quarkus based function.
 
     2023-06-05 11:44:24,207 INFO  [org.acm.get.sta.fun.clo.CloudEventGreeting] (executor-thread-1) Hello Daniel
 
-## Refactored function method signature
+## Refactored function signature to receive/return `CloudEvent` and interact with CloudEvent attributes
+
+link:https://access.redhat.com/documentation/en-us/red_hat_openshift_serverless/1.28/html-single/functions/index#serverless-quarkus-cloudevent-attributes_serverless-developing-quarkus-functions[CloudEvent attributes]
+link:https://access.redhat.com/documentation/en-us/red_hat_openshift_serverless/1.28/html-single/functions/index#serverless-quarkus-function-return-values_serverless-developing-quarkus-functions[Quarkus function return types]
 
 * From
 
@@ -107,7 +110,7 @@ Kubernetes platform.
 * Note 2: *_Kubernetes/OpenShift_* means that a component such as OpenShift S2I, Tekton, or Buildpacks
 is added to the Kubernetes platform to perform the build.
 
-### Building with Docker
+### Building function with Docker
 
 * Add extension
 
@@ -124,7 +127,7 @@ is added to the Kubernetes platform to perform the build.
 
     ./mvnw clean package
 
-###  Building with S2I
+###  Building function with S2I
 
 ./mvnw quarkus:add-extension -Dextensions="container-image-s2i"
 
@@ -173,7 +176,7 @@ spec:
     oc logs -f <pod name> -c user-container | grep CloudEventGreeting
    oc logs funqy-quarkus-serverless-cloudevent-docker-v1-deployment-644755 -c user-container | grep CloudEventGreeting
 
-## Deploy & Test via Broker
+## Deploy & Test via Knative `Broker` and `Trigger`
 
 Pattern: Event Source to Broker and Trigger
 
